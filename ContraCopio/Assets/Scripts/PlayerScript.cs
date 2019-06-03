@@ -11,7 +11,6 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb2d;
     Animator animator;
     bool jumping = false;
-    bool sit = false;
 
     // Start is called before the first frame update
     void Start()
@@ -56,11 +55,9 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
-            sit = true;
             animator.SetBool("Sit", true);
         } else
         {
-            sit = false;
             animator.SetBool("Sit", false);
         }
     }
