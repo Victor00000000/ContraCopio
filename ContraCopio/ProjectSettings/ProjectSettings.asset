@@ -585,6 +585,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Collab: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -605,10 +606,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 72e1ea3a-05e5-41b1-aecc-8b7839332c81
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: ContraCopio
+  organizationId: vict0r0
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
