@@ -6,11 +6,18 @@ public class PlayerScript : MonoBehaviour
 {
 
     Vector2 inputVector;
-    public float speed;
-    public float jumpingSpeed;
+    public float speed = 5;
+    public float jumpingSpeed = 5;
     Rigidbody2D rb2d;
     Animator animator;
     bool jumping = false;
+
+    // Fireing
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPrefab;
+    public Transform bulletParent;
+    public float gunCooldown = 1f;
+    float gunCooldownTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +32,7 @@ public class PlayerScript : MonoBehaviour
         InputReader();
         Move();
 
-        if (animator.GetBool("Jumping") && (rb2d.velocity.sqrMagnitude < 0.0001f))
+        if (jumping && (rb2d.velocity.sqrMagnitude < 0.0001f))
         {
             jumping = false;
             animator.SetBool("Jumping", false);
@@ -59,6 +66,24 @@ public class PlayerScript : MonoBehaviour
         } else
         {
             animator.SetBool("Sit", false);
+        }
+
+        // Fireing
+        gunCooldownTimer -= Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (gunCooldownTimer < 0)
+            {
+                gunCooldownTimer = gunCooldown;
+                GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
+                if (transform.localScale.x < 0)
+                {
+                    go.GetComponent<BulletScript>().SetDirection(Vector2.right);
+                } else
+                {
+                    go.GetComponent<BulletScript>().SetDirection(Vector2.left);
+                }
+            }
         }
     }
 

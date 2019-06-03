@@ -6,24 +6,27 @@ public class BulletScript : MonoBehaviour
 {
 
     Vector2 direction;
+    float speed = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Invoke("Die", 5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(direction);
+        transform.Translate(direction * Time.deltaTime * speed);
     }
 
-    void SetDirection(Vector2 dir)
+    public void SetDirection(Vector2 dir)
     {
-        if (direction == null)
-        {
-            direction = dir;
-        }
+        direction = dir;
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }
