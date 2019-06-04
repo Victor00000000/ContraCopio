@@ -35,6 +35,5 @@ public class BulletScript : MonoBehaviour
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
-        Debug.Log("Tunnistettu");
     }    
 }

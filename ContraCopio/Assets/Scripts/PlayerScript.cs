@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb2d;
     Animator animator;
     bool jumping = false;
+    bool collision = true;
     int score = 0;
     public int lives;
     public TMPro.TMP_Text scoreText;
@@ -122,19 +123,20 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (collision.collider.CompareTag("Ground"))
+        if (other.collider.CompareTag("Ground"))
         {
             jumping = false;
             animator.SetBool("Jumping", false);
         }
+        else if (other.collider.CompareTag("Death") || other.collider.CompareTag("Enemy")) {
+                if (collision) Die();
+            }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Death")) {
-            Die();
-        }
+        
     }
 
     void ScorePoins(int points) {
@@ -143,6 +145,23 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Die() {
-        
+        Vector2 newPos = new Vector2(-50000, 0);
+        transform.position = newPos;
+        collision = false;
+        lives--;
+        livesText.text = "Lives " + lives;
+        Invoke("Respawn", 2f);
+    }
+
+    void Respawn() {
+        // Spawn player
+        Vector2 newPos = new Vector2(-6.5f, 0);
+        transform.position = newPos;
+        Invoke("EnableCollision", 2f);
+    }
+
+    void EnableCollision() {
+        // Turn on collision
+        collision = true;
     }
 }
