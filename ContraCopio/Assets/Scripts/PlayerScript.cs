@@ -10,12 +10,12 @@ public class PlayerScript : MonoBehaviour
     public float jumpingSpeed = 5;
     Rigidbody2D rb2d;
     Animator animator;
-    bool jumping = false;
+    public bool jumping = false;
     int score = 0;
     public int lives;
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text livesText;
-    float fallingTimer;
+    public float fallingTimer;
     public Transform groundCheck;
 
     // Fireing
@@ -34,6 +34,29 @@ public class PlayerScript : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         bulletParent = GameObject.Find("Bullets").transform;
+    }
+
+    private void FixedUpdate()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f, LayerMask.NameToLayer("Ground"));
+        if (colliders != null)
+        {
+            foreach(Collider2D col in colliders)
+            {
+                if (col.gameObject != gameObject)
+                {
+                    jumping = false;
+                    animator.SetBool("Jumping", false);
+                }
+            }
+            
+        } else
+        {
+            Debug.Log("in air");
+            jumping = true;
+            animator.SetBool("Jumping", true);
+        }
+
     }
 
     // Update is called once per frame
@@ -75,7 +98,8 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                fallingTimer = 1f;
+                Debug.Log("here");
+                fallingTimer = 10f;
                 Physics2D.IgnoreLayerCollision(0, 8);
                 rb2d.velocity = Vector2.zero;
             }
@@ -144,5 +168,11 @@ public class PlayerScript : MonoBehaviour
 
     void Die() {
         
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;  
+        Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
     }
 }

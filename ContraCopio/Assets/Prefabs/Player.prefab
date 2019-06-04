@@ -50,6 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpingSpeed: 10
+  lives: 3
+  scoreText: {fileID: 0}
+  livesText: {fileID: 0}
+  groundCheck: {fileID: 2321601919130493036}
   bulletSpawnPoint: {fileID: 1377088471708676432}
   bulletPrefab: {fileID: 645663319985987747, guid: 1eb404179a24e604888cfe6d29c9296e,
     type: 3}
