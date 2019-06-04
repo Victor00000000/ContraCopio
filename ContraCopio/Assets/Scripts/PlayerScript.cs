@@ -62,6 +62,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                transform.position = transform.position - Vector3.down * 0.1f;
+            }
             animator.SetBool("Sit", true);
         } else
         {
@@ -90,6 +94,6 @@ public class PlayerScript : MonoBehaviour
     void Move()
     {
         transform.Translate(inputVector * speed * Time.deltaTime);
-
+        transform.Translate(Vector2.down * Time.deltaTime * 10f);
     }
 }
