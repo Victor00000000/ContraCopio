@@ -130,13 +130,10 @@ public class PlayerScript : MonoBehaviour
             jumping = false;
             animator.SetBool("Jumping", false);
         }
-        else if (other.collider.CompareTag("Death") || other.collider.CompareTag("Enemy")) {
-                if (collision) Die();
-            }
-    }
-
-    void OnTriggerEnter2D(Collider2D other) {
-        
+        else if (other.collider.CompareTag("Death") ||
+                other.collider.CompareTag("Enemy")) {
+            if (collision) Die();
+        }
     }
 
     void ScorePoins(int points) {
@@ -150,7 +147,7 @@ public class PlayerScript : MonoBehaviour
         collision = false;
         lives--;
         livesText.text = "Lives " + lives;
-        Invoke("Respawn", 2f);
+        if (lives > 0) Invoke("Respawn", 2f);
     }
 
     void Respawn() {
