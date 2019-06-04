@@ -13,16 +13,16 @@ public class PlatformScript : MonoBehaviour
         
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.name == "Player")
+        if (collision.gameObject.name == "Player")
         {
-            Physics2D.IgnoreCollision(ownCollider, collision.GetComponent<BoxCollider2D>());
-        } else
-        {
-            Debug.Log(collision.name);
+            Physics2D.IgnoreLayerCollision(0,8);
         }
-
-
+        else
+        {
+            Debug.Log(collision.gameObject.name);
+        }
     }
+
 }

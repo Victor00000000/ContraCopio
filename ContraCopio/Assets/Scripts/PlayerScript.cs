@@ -80,7 +80,7 @@ public class PlayerScript : MonoBehaviour
     void Move()
     {
         transform.Translate(inputVector * speed * Time.deltaTime);
-        transform.Translate(Vector2.down * Time.deltaTime * 10f);
+        //transform.Translate(Vector2.down * Time.deltaTime * 10f);
     }
 
     void Shoot() {
