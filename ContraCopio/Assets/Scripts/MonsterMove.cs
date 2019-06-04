@@ -7,6 +7,10 @@ public class MonsterMove : MonoBehaviour
 
     public float speed = 1f;
     // Start is called before the first frame update
+    public GameObject enemy;
+    public GameObject player;
+    public GameObject bullet;
+
     void Start()
     {
         
@@ -17,4 +21,5 @@ public class MonsterMove : MonoBehaviour
     {
         transform.Translate(Vector2.left *(speed * Time.deltaTime));
     }
+
 }
