@@ -107,4 +107,10 @@ public class PlayerScript : MonoBehaviour
             go.GetComponent<BulletScript>().SetDirection(Vector2.left);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Death")) {
+            Destroy(gameObject);
+        }
+    }
 }
