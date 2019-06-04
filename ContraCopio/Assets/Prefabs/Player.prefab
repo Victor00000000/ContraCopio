@@ -49,6 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpingSpeed: 10
+  lives: 3
+  scoreText: {fileID: 0}
+  livesText: {fileID: 0}
   bulletSpawnPoint: {fileID: 1377088471708676432}
   bulletPrefab: {fileID: 645663319985987747, guid: 1eb404179a24e604888cfe6d29c9296e,
     type: 3}
@@ -184,20 +187,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4210157123753652, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4210157123753652, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212874855828977060, guid: 6877fb649746c674d8fbbcf60d41892b,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212825760485200248, guid: 6877fb649746c674d8fbbcf60d41892b,
-        type: 3}
-      propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
