@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public int lives;
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text livesText;
+    float fallingTimer;
 
     // Fireing
     public Transform bulletSpawnPoint;
@@ -31,18 +32,20 @@ public class PlayerScript : MonoBehaviour
         
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        bulletParent = GameObject.Find("Bullets").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        fallingTimer -= Time.deltaTime;
+
         InputReader();
         Move();
 
-        if (jumping && (rb2d.velocity.sqrMagnitude < 0.0001f))
+        if (fallingTimer < 0 && Physics2D.GetIgnoreLayerCollision(0,8))
         {
-            jumping = false;
-            animator.SetBool("Jumping", false);
+            Physics2D.IgnoreLayerCollision(0, 8, false);
         }
     }
 
@@ -60,7 +63,7 @@ public class PlayerScript : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && jumping == false)
+        if (Input.GetKeyDown(KeyCode.Y) && jumping == false)
         {
             rb2d.velocity = new Vector2(0, jumpingSpeed);
             animator.SetBool("Jumping", true);
@@ -69,9 +72,10 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
-                transform.position = transform.position - Vector3.down * 0.1f;
+                fallingTimer = 1f;
+                Physics2D.IgnoreLayerCollision(0, 8);
             }
             animator.SetBool("Sit", true);
         } else
@@ -81,7 +85,7 @@ public class PlayerScript : MonoBehaviour
 
         // Fireing
         gunCooldownTimer -= Time.deltaTime;
-        if (Input.GetKey(KeyCode.Space) && gunCooldownTimer < 0) Shoot();
+        if (Input.GetKey(KeyCode.G) && gunCooldownTimer < 0) Shoot();
     }
 
     void Move()
@@ -112,6 +116,16 @@ public class PlayerScript : MonoBehaviour
             bul.SetDirection(Vector2.right);
         } else { // Else it's facing left
             go.GetComponent<BulletScript>().SetDirection(Vector2.left);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            jumping = false;
+            animator.SetBool("Jumping", false);
         }
     }
 
