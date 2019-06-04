@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text livesText;
     float fallingTimer;
+    public Transform groundCheck;
 
     // Fireing
     public Transform bulletSpawnPoint;
@@ -76,6 +77,7 @@ public class PlayerScript : MonoBehaviour
             {
                 fallingTimer = 1f;
                 Physics2D.IgnoreLayerCollision(0, 8);
+                rb2d.velocity = Vector2.zero;
             }
             animator.SetBool("Sit", true);
         } else
