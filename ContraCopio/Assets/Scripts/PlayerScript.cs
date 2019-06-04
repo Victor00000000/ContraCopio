@@ -11,6 +11,10 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb2d;
     Animator animator;
     bool jumping = false;
+    int score = 0;
+    public int lives;
+    public TMPro.TMP_Text scoreText;
+    public TMPro.TMP_Text livesText;
 
     // Fireing
     public Transform bulletSpawnPoint;
@@ -22,6 +26,9 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreText.text = "Score " + score;
+        livesText.text = "Lives " + lives;
+        
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
@@ -110,7 +117,16 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Death")) {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    void ScorePoins(int points) {
+        score += points;
+        scoreText.text = "Score " + score;
+    }
+
+    void Die() {
+        
     }
 }
