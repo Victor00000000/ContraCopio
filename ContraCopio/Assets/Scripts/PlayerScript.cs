@@ -74,26 +74,37 @@ public class PlayerScript : MonoBehaviour
 
         // Fireing
         gunCooldownTimer -= Time.deltaTime;
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (gunCooldownTimer < 0)
-            {
-                gunCooldownTimer = gunCooldown;
-                GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
-                if (transform.localScale.x < 0)
-                {
-                    go.GetComponent<BulletScript>().SetDirection(Vector2.right);
-                } else
-                {
-                    go.GetComponent<BulletScript>().SetDirection(Vector2.left);
-                }
-            }
-        }
+        if (Input.GetKey(KeyCode.Space) && gunCooldownTimer < 0) Shoot();
     }
 
     void Move()
     {
         transform.Translate(inputVector * speed * Time.deltaTime);
         transform.Translate(Vector2.down * Time.deltaTime * 10f);
+    }
+
+    void Shoot() {
+        bool right = Input.GetKey(KeyCode.D);
+        bool left = Input.GetKey(KeyCode.A);
+        bool up = Input.GetKey(KeyCode.W);
+        bool down = Input.GetKey(KeyCode.S);
+        
+        gunCooldownTimer = gunCooldown;
+        GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
+        BulletScript bul = go.GetComponent<BulletScript>();
+        
+        if (down) { // Check down inputs
+            if (right) bul.SetDirection(Vector2.right + Vector2.down);
+            else if (left) bul.SetDirection(Vector2.left + Vector2.down);
+            else bul.SetDirection(Vector2.down);
+        } else if (up) { // Check up inputs
+            if (right) bul.SetDirection(Vector2.right + Vector2.up);
+            else if (left) bul.SetDirection(Vector2.left + Vector2.up);
+            else bul.SetDirection(Vector2.up);
+        } else if (transform.localScale.x < 0) { // If facing right
+            bul.SetDirection(Vector2.right);
+        } else { // Else it's facing left
+            go.GetComponent<BulletScript>().SetDirection(Vector2.left);
+        }
     }
 }
