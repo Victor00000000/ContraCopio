@@ -6,6 +6,8 @@ public class PlayerScript : MonoBehaviour
 {
 
     GameMaster gm;
+    SpriteRenderer sr;
+    Camera camera;
     Vector2 inputVector;
     public float speed = 5;
     public float jumpingSpeed = 5;
@@ -15,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     bool collision = true;
     float fallingTimer;
     public Transform groundCheck;
+    Color spawnColor;
 
     bool right;
     bool left;
@@ -35,6 +38,11 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         bulletParent = GameObject.Find("Bullets").transform;
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        camera = Camera.main;
+
+        spawnColor = Color.white;
+        spawnColor.a = 0.3f;
     }
 
     private void FixedUpdate()
@@ -169,7 +177,6 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.collider.CompareTag("Ground")) {
             //jumping = false;
@@ -180,19 +187,23 @@ public class PlayerScript : MonoBehaviour
                 Die();
         }
     }
-    
 
     void Die() {
         Vector2 newPos = new Vector2(-50000, 0);
         transform.position = newPos;
         collision = false;
+        sr.color = spawnColor;
         gm.UpdateLives(-1);
-        if (gm.lives > 0) Invoke("Respawn", 2f);
+        if (gm.lives > 0)
+            Invoke("Respawn", 2f);
+        else
+            gm.GameOver();
     }
 
     void Respawn() {
         // Spawn player
-        Vector2 newPos = new Vector2(-6.5f, 0);
+        Vector3 newPos = camera.ViewportToWorldPoint(new Vector3(0.2f, 0.5f, 0));
+        newPos.z = 0f;
         transform.position = newPos;
         Invoke("EnableCollision", 2f);
     }
@@ -200,6 +211,7 @@ public class PlayerScript : MonoBehaviour
     void EnableCollision() {
         // Turn on collision
         collision = true;
+        sr.color = Color.white;
     }
 
     private void OnDrawGizmosSelected()

@@ -11,6 +11,7 @@ public class ParentMonster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.gameObject.tag = "Enemy";
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
