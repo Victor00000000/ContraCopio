@@ -8,7 +8,9 @@ public class MonsterSpawn : MonoBehaviour
     public GameObject enemy;
     public float spawn = 1f;
     public float spawnTime = 3f;
-    private Vector2 spawnPosition;
+    public Vector2 spawnPosition;
+    private int spawnPositionX = 1;
+    private int spawnPositionY = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +27,7 @@ public class MonsterSpawn : MonoBehaviour
 
     void Spawn()
     {
-        spawnPosition.x = 37;
-        spawnPosition.y = 0;
-
         Instantiate(enemy, spawnPosition, Quaternion.identity);
     }
+
 }
