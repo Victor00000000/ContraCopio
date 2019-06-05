@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMonster : MonoBehaviour
+public class BasicMonster : ParentMonster
 {
     public float speed = 1f;
-
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
