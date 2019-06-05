@@ -5,8 +5,9 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
 
-    Vector2 direction;
-    float speed = 5;
+    public Vector2 direction;
+    public float speed = 5;
+    public string target = "Enemy";
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class BulletScript : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col){
-        if(col.CompareTag ("Enemy")) {
+        if(col.CompareTag (target)) {
             Destroy(col.gameObject);
             Destroy(gameObject);
         }

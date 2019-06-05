@@ -10,7 +10,7 @@ public class MonsterSpawn : MonoBehaviour
     public float spawnAmount = 1;
     public float spawnInterval = 3f; // In seconds
     int spawned;
-    bool spawnStarted;
+    public bool spawnStarted;
     float dist;
 
     // Start is called before the first frame update
@@ -42,4 +42,5 @@ public class MonsterSpawn : MonoBehaviour
             Invoke("Spawn", spawnInterval);
         }
     }
+
 }

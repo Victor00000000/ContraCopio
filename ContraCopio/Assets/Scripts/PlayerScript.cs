@@ -12,10 +12,9 @@ public class PlayerScript : MonoBehaviour
     public float jumpingSpeed = 5;
     Rigidbody2D rb2d;
     Animator animator;
-    public bool jumping = false;
+    bool jumping = false;
     bool collision = true;
-    Vector2 respawnPos;
-    public float fallingTimer;
+    float fallingTimer;
     public Transform groundCheck;
 
     // Fireing
@@ -37,9 +36,10 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f, LayerMask.NameToLayer("Ground"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
         if (colliders != null)
         {
+            Debug.Log("collider not null");
             foreach(Collider2D col in colliders)
             {
                 if (col.gameObject != gameObject)
@@ -79,11 +79,11 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             inputVector.x = -1;
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
         } else if (Input.GetKey(KeyCode.D))
         {
             inputVector.x = 1;
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
         }
 
         if (Input.GetKeyDown(KeyCode.Y) && jumping == false)
@@ -97,8 +97,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                Debug.Log("here");
-                fallingTimer = 10f;
+                fallingTimer = 0.5f;
                 Physics2D.IgnoreLayerCollision(0, 8);
                 rb2d.velocity = Vector2.zero;
             }
@@ -110,7 +109,8 @@ public class PlayerScript : MonoBehaviour
 
         // Fireing
         gunCooldownTimer -= Time.deltaTime;
-        if (Input.GetKey(KeyCode.G) && gunCooldownTimer < 0) Shoot();
+        if (Input.GetKey(KeyCode.G) && gunCooldownTimer < 0)
+            Shoot();
     }
 
     void Move()
@@ -137,23 +137,25 @@ public class PlayerScript : MonoBehaviour
             if (right) bul.SetDirection(Vector2.right + Vector2.up);
             else if (left) bul.SetDirection(Vector2.left + Vector2.up);
             else bul.SetDirection(Vector2.up);
-        } else if (transform.localScale.x < 0) { // If facing right
+        } else if (transform.localScale.x > 0) { // If facing right
             bul.SetDirection(Vector2.right);
         } else { // Else it's facing left
             go.GetComponent<BulletScript>().SetDirection(Vector2.left);
         }
     }
 
-
+    /*
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.collider.CompareTag("Ground")) {
             jumping = false;
             animator.SetBool("Jumping", false);
         } else if (other.collider.CompareTag("Death") ||
                   other.collider.CompareTag("Enemy")) {
-            if (collision) Die();
+            if (collision)
+                Die();
         }
     }
+    */
 
     void Die() {
         Vector2 newPos = new Vector2(-50000, 0);
@@ -183,4 +185,5 @@ public class PlayerScript : MonoBehaviour
         Gizmos.color = Color.red;  
         Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
     }
+
 }

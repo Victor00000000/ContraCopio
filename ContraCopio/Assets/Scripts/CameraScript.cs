@@ -21,7 +21,7 @@ public class CameraScript : MonoBehaviour
             {
                 transform.position = new Vector3(target.transform.position.x, transform.position.y, -10f);
             }
-
+            /*
             if (target.transform.position.y > transform.position.y)
             {
                 transform.position = new Vector3(transform.position.x, target.transform.position.y, -10f);
@@ -31,6 +31,7 @@ public class CameraScript : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, target.transform.position.y, -10f);
             }
+            */
         }
     }
 }
