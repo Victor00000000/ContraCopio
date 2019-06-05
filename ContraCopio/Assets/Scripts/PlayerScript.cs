@@ -11,10 +11,15 @@ public class PlayerScript : MonoBehaviour
     public float jumpingSpeed = 5;
     Rigidbody2D rb2d;
     Animator animator;
-    bool jumping = false;
+    public bool jumping = false;
     bool collision = true;
     float fallingTimer;
     public Transform groundCheck;
+
+    bool right;
+    bool left;
+    bool up;
+    bool down;
 
     // Fireing
     public Transform bulletSpawnPoint;
@@ -34,26 +39,26 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f);
-        if (colliders != null)
-        {
-            Debug.Log("collider not null");
-            foreach(Collider2D col in colliders)
-            {
-                if (col.gameObject != gameObject)
-                {
-                    jumping = false;
-                    animator.SetBool("Jumping", false);
-                }
-            }
-            
-        } else
-        {
-            Debug.Log("in air");
-            jumping = true;
-            animator.SetBool("Jumping", true);
-        }
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, -Vector2.up);
 
+        if (hit.collider != null)
+        {
+            float distance = Mathf.Abs(hit.point.y - groundCheck.transform.position.y);
+            Debug.Log(distance);
+            if (distance < 0.01f)
+            {
+                jumping = false;
+                Debug.Log("not jumping");
+                animator.SetBool("Jumping", false);
+            }
+            else
+            {
+                jumping = true;
+                Debug.Log("jumping");
+                animator.SetBool("Jumping", true);
+            }
+
+        }
     }
 
     // Update is called once per frame
@@ -72,26 +77,52 @@ public class PlayerScript : MonoBehaviour
 
     void InputReader()
     {
+        right = Input.GetKey(KeyCode.D);
+        left = Input.GetKey(KeyCode.A);
+        up = Input.GetKey(KeyCode.W);
+        down = Input.GetKey(KeyCode.S);
+
         inputVector = new Vector2(0, 0);
 
-        if (Input.GetKey(KeyCode.A))
+        animator.SetBool("Move", false);
+
+        if (!jumping)
         {
-            inputVector.x = -1;
-            transform.localScale = new Vector3(-1, 1, 1);
-        } else if (Input.GetKey(KeyCode.D))
-        {
-            inputVector.x = 1;
-            transform.localScale = new Vector3(1, 1, 1);
+            if (right)
+            {
+                Debug.Log("Right");
+                inputVector.x = 1;
+                transform.localScale = new Vector3(1, 1, 1);
+                animator.SetBool("Move", true);
+
+            }
+            else if (left)
+            {
+                inputVector.x = -1;
+                transform.localScale = new Vector3(-1, 1, 1);
+                animator.SetBool("Move", true);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Y) && jumping == false)
         {
-            rb2d.velocity = new Vector2(0, jumpingSpeed);
-            animator.SetBool("Jumping", true);
+            /*
+            if (right)
+                rb2d.velocity = new Vector2(jumpingSpeed, jumpingSpeed).normalized;
+            else if (left)
+                rb2d.velocity = new Vector2(-jumpingSpeed, jumpingSpeed).normalized;
+            else */
+                rb2d.velocity = new Vector2(0, jumpingSpeed);
+
+            //animator.SetBool("Jumping", true);
+            Debug.Log("jump");
             jumping = true;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        Debug.Log("velocity" + rb2d.velocity);
+        
+
+        if (down)
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
@@ -118,10 +149,6 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Shoot() {
-        bool right = Input.GetKey(KeyCode.D);
-        bool left = Input.GetKey(KeyCode.A);
-        bool up = Input.GetKey(KeyCode.W);
-        bool down = Input.GetKey(KeyCode.S);
         
         gunCooldownTimer = gunCooldown;
         GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
@@ -142,18 +169,18 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    /*
+    
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.collider.CompareTag("Ground")) {
-            jumping = false;
-            animator.SetBool("Jumping", false);
+            //jumping = false;
+            //animator.SetBool("Jumping", false);
         } else if (other.collider.CompareTag("Death") ||
                   other.collider.CompareTag("Enemy")) {
             if (collision)
                 Die();
         }
     }
-    */
+    
 
     void Die() {
         Vector2 newPos = new Vector2(-50000, 0);
