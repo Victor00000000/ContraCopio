@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
 
+    GameMaster gm;
     Vector2 inputVector;
     public float speed = 5;
     public float jumpingSpeed = 5;
@@ -12,10 +13,6 @@ public class PlayerScript : MonoBehaviour
     Animator animator;
     public bool jumping = false;
     bool collision = true;
-    int score = 0;
-    public int lives;
-    public TMPro.TMP_Text scoreText;
-    public TMPro.TMP_Text livesText;
     public float fallingTimer;
     public Transform groundCheck;
 
@@ -28,13 +25,11 @@ public class PlayerScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        scoreText.text = "Score " + score;
-        livesText.text = "Lives " + lives;
-        
+    {  
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         bulletParent = GameObject.Find("Bullets").transform;
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
     private void FixedUpdate()
@@ -147,31 +142,22 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.CompareTag("Ground"))
-        {
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.collider.CompareTag("Ground")) {
             jumping = false;
             animator.SetBool("Jumping", false);
-        }
-        else if (other.collider.CompareTag("Death") ||
-                other.collider.CompareTag("Enemy")) {
+        } else if (other.collider.CompareTag("Death") ||
+                  other.collider.CompareTag("Enemy")) {
             if (collision) Die();
         }
-    }
-
-    void ScorePoins(int points) {
-        score += points;
-        scoreText.text = "Score " + score;
     }
 
     void Die() {
         Vector2 newPos = new Vector2(-50000, 0);
         transform.position = newPos;
         collision = false;
-        lives--;
-        livesText.text = "Lives " + lives;
-        if (lives > 0) Invoke("Respawn", 2f);
+        gm.UpdateLives(-1);
+        if (gm.lives > 0) Invoke("Respawn", 2f);
     }
 
     void Respawn() {
