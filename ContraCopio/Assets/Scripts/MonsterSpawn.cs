@@ -25,8 +25,8 @@ public class MonsterSpawn : MonoBehaviour
 
     void Spawn()
     {
-        spawnPosition.x = 8;
-        spawnPosition.y = 1;
+        spawnPosition.x = 37;
+        spawnPosition.y = 0;
 
         Instantiate(enemy, spawnPosition, Quaternion.identity);
     }
