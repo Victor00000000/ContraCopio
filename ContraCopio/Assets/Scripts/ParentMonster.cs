@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParentMonster : MonoBehaviour
 {
 
-    int points;
+    public int points;
     GameMaster gm;
     
     // Start is called before the first frame update
@@ -21,6 +21,6 @@ public class ParentMonster : MonoBehaviour
     }
 
     void OnDestroy() {
-        gm.ScorePoins(points);
+        if (gm != null) gm.ScorePoins(points);
     }
 }
