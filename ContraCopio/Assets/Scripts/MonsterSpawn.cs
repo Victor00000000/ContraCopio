@@ -6,28 +6,41 @@ public class MonsterSpawn : MonoBehaviour
 {
 
     public GameObject enemy;
-    public float spawn = 1f;
-    public float spawnTime = 3f;
-    public Vector2 spawnPosition;
-    private int spawnPositionX = 1;
-    private int spawnPositionY = 1;
+    Transform player;
+    public float spawnAmount = 1;
+    public float spawnInterval = 3f; // In seconds
+    int spawned;
+    bool spawnStarted;
+    float dist;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating ("Spawn", spawnTime, spawnTime);
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        if (!spawnStarted) {
+            dist = transform.position.x - player.position.x;
 
+            if (dist < 9) {
+                Spawn();
+                spawnStarted = true;
+            }
+        }
     }
 
-    void Spawn()
-    {
-        Instantiate(enemy, spawnPosition, Quaternion.identity);
+    void Spawn() { 
+        Instantiate(enemy, transform.position, Quaternion.identity);
+        spawned++;
+
+        if (spawned >= spawnAmount) {
+            CancelInvoke();
+            Destroy(gameObject);
+        } else {
+            Invoke("Spawn", spawnInterval);
+        }
     }
 
 }
