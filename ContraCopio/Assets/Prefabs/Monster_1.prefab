@@ -388,7 +388,6 @@ GameObject:
   - component: {fileID: 6347282858820683286}
   - component: {fileID: -1300481567301892658}
   - component: {fileID: 6667754925629069280}
-  - component: {fileID: 5657388208244298348}
   m_Layer: 0
   m_Name: Monster_1
   m_TagString: Enemy
@@ -405,7 +404,7 @@ Transform:
   m_GameObject: {fileID: 143126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.22, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0}
   m_Children:
   - {fileID: 493126}
   - {fileID: 445866}
@@ -428,6 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 10
   speed: 1
+  dir: {x: -1, y: 0}
 --- !u!50 &-1300481567301892658
 Rigidbody2D:
   serializedVersion: 4
@@ -475,22 +475,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
---- !u!114 &5657388208244298348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143126}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac6f926900fa52f449f7f6bdad3823ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  min: 0
-  max: 20
-  randomUp: 1
 --- !u!1 &1000012009916770
 GameObject:
   m_ObjectHideFlags: 0
