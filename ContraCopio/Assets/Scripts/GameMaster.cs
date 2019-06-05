@@ -6,13 +6,15 @@ public class GameMaster : MonoBehaviour
 {
 
     int score = 0;
-    public int lives;
-    public TMPro.TMP_Text scoreText;
-    public TMPro.TMP_Text livesText;
+    public int lives = 3;
+    TMPro.TMP_Text scoreText;
+    TMPro.TMP_Text livesText;
 
     // Start is called before the first frame update
     void Start()
     {
+        scoreText = GameObject.Find("Score").GetComponent<TMPro.TMP_Text>();
+        livesText = GameObject.Find("Lives").GetComponent<TMPro.TMP_Text>();
         scoreText.text = "Score " + score;
         livesText.text = "Lives " + lives;
     }
