@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : ParentMonster
 {
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
-    public Transform bulletParent;
     public float shootingSpeed = 3f;
-    public Vector2 spawnPosition;
-    public float spawn = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("Spawn", shootingSpeed, shootingSpeed);
+        InvokeRepeating("Shoot", shootingSpeed, shootingSpeed);
     }
 
     // Update is called once per frame
@@ -22,7 +19,7 @@ public class Turret : MonoBehaviour
     {
     }
 
-    void Spawn()
+    void Shoot()
     {
         GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         BulletScript bul = go.GetComponent<BulletScript>();
