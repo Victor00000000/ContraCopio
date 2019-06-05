@@ -6,6 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
 
     GameMaster gm;
+    Camera camera;
     Vector2 inputVector;
     public float speed = 5;
     public float jumpingSpeed = 5;
@@ -13,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     Animator animator;
     public bool jumping = false;
     bool collision = true;
+    Vector2 respawnPos;
     public float fallingTimer;
     public Transform groundCheck;
 
@@ -30,6 +32,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         bulletParent = GameObject.Find("Bullets").transform;
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        camera = Camera.main;
     }
 
     private void FixedUpdate()
@@ -157,12 +160,15 @@ public class PlayerScript : MonoBehaviour
         transform.position = newPos;
         collision = false;
         gm.UpdateLives(-1);
-        if (gm.lives > 0) Invoke("Respawn", 2f);
+        if (gm.lives > 0)
+            Invoke("Respawn", 2f);
+        else gm.GameOver();
     }
 
     void Respawn() {
         // Spawn player
-        Vector2 newPos = new Vector2(-6.5f, 0);
+        Vector3 newPos = camera.ViewportToWorldPoint(new Vector3(0.2f, 0.5f, 0));
+        newPos.z = 0f;
         transform.position = newPos;
         Invoke("EnableCollision", 2f);
     }
