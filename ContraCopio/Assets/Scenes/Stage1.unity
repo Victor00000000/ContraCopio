@@ -152,6 +152,7 @@ MonoBehaviour:
   enemy: {fileID: 143126, guid: 5302e0fa9c649e44688e67302a3e57b5, type: 3}
   spawnAmount: 2
   spawnInterval: 3
+  spawnStarted: 0
 --- !u!4 &114896955
 Transform:
   m_ObjectHideFlags: 0
@@ -582,6 +583,7 @@ MonoBehaviour:
   enemy: {fileID: 143126, guid: 5302e0fa9c649e44688e67302a3e57b5, type: 3}
   spawnAmount: 2
   spawnInterval: 3
+  spawnStarted: 0
 --- !u!4 &791526508
 Transform:
   m_ObjectHideFlags: 0

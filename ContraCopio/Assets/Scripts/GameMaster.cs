@@ -10,18 +10,28 @@ public class GameMaster : MonoBehaviour
     public int lives = 3;
     TMPro.TMP_Text scoreText;
     TMPro.TMP_Text livesText;
-    public GameObject gameOverPanel;
-    public GameObject newHighscorePanel;
-    public TMPro.TMP_InputField highScoreInput;
-    public TMPro.TMP_Text highScoreListText;
+    TMPro.TMP_InputField highScoreInput;
+    TMPro.TMP_Text highScoreListText;
+    GameObject gameOverPanel;
+    GameObject newHighscorePanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Score and lives
         scoreText = GameObject.Find("Score").GetComponent<TMPro.TMP_Text>();
         livesText = GameObject.Find("Lives").GetComponent<TMPro.TMP_Text>();
         scoreText.text = "Score " + score;
         livesText.text = "Lives " + lives;
+        PlayerPrefs.DeleteAll();
+
+        // Game over and high score
+        highScoreInput = GameObject.Find("HighscoreInput").GetComponent<TMPro.TMP_InputField>();
+        highScoreListText = GameObject.Find("HighscoreList").GetComponent<TMPro.TMP_Text>();
+        gameOverPanel = GameObject.Find("GameOverPanel");
+        gameOverPanel.SetActive(false);
+        newHighscorePanel = GameObject.Find("NewHighscorePanel");
+        newHighscorePanel.SetActive(false);
     }
 
     public void ScorePoins(int points) {
@@ -47,6 +57,7 @@ public class GameMaster : MonoBehaviour
 
     public void HighScoreInput() {
         string newInput = highScoreInput.text;
+        Debug.Log(newInput);
         newHighscorePanel.SetActive(false);
         gameOverPanel.SetActive(true);
         PlayerPrefs.SetString("highscoreName", newInput);
