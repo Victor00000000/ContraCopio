@@ -163,6 +163,7 @@ MonoBehaviour:
     type: 3}
   shootingSpeed: 3
   player: {fileID: 0}
+  gun: {fileID: 2286447348969831822}
   speed: 0
   shootingDelay: 0
   lastTimeShot: 0

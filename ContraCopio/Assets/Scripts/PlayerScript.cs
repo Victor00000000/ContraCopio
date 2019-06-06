@@ -142,18 +142,54 @@ public class PlayerScript : MonoBehaviour
         BulletScript bul = go.GetComponent<BulletScript>();
         
         if (down) { // Check down inputs
-            if (right) bul.SetDirection(Vector2.right + Vector2.down);
-            else if (left) bul.SetDirection(Vector2.left + Vector2.down);
-            else bul.SetDirection(Vector2.down);
+            if (right)
+            {
+                bul.SetDirection(Vector2.right + Vector2.down);
+                animator.SetBool("ShKa", true);
+            }
+            else if (left)
+            {
+                bul.SetDirection(Vector2.left + Vector2.down);
+                animator.SetBool("ShKa", true);
+            }
+            else
+            {
+                bul.SetDirection(Vector2.down);
+                animator.SetBool("ShDo", true);
+            }
         } else if (up) { // Check up inputs
-            if (right) bul.SetDirection(Vector2.right + Vector2.up);
-            else if (left) bul.SetDirection(Vector2.left + Vector2.up);
-            else bul.SetDirection(Vector2.up);
+            if (right)
+            {
+                bul.SetDirection(Vector2.right + Vector2.up);
+                animator.SetBool("ShKo", true);
+            }
+            else if (left)
+            {
+                bul.SetDirection(Vector2.left + Vector2.up);
+                animator.SetBool("ShKo", true);
+            }
+            else
+            {
+                bul.SetDirection(Vector2.up);
+                animator.SetBool("ShUp", true);
+            }
         } else if (transform.localScale.x > 0) { // If facing right
             bul.SetDirection(Vector2.right);
+            animator.SetBool("ShHor", true);
         } else { // Else it's facing left
             go.GetComponent<BulletScript>().SetDirection(Vector2.left);
+            animator.SetBool("ShHor", true);
         }
+        Invoke("ResetShootingDirections", 0.1f);
+    }
+
+    void ResetShootingDirections()
+    {
+        animator.SetBool("ShKa", false);
+        animator.SetBool("ShKo", false);
+        animator.SetBool("ShUp", false);
+        animator.SetBool("ShDo", false);
+        animator.SetBool("ShHor", false);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
