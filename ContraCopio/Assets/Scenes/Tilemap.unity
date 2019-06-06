@@ -2255,7 +2255,7 @@ GameObject:
   - component: {fileID: 2111154019}
   - component: {fileID: 2111154018}
   - component: {fileID: 2111154020}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Ground
   m_Icon: {fileID: 0}
