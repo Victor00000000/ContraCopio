@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     public Vector2 direction;
     public float speed = 5;
     public string target = "Enemy";
+    public Transform texture;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,8 @@ public class BulletScript : MonoBehaviour
     public void SetDirection(Vector2 dir)
     {
         direction = dir;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        texture.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     void Die()
