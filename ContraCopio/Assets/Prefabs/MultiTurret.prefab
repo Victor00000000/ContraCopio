@@ -69,12 +69,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b35260905f8ef4942b3dae5081f99f49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59294e7ca224fe94cb78021c92df8472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.47, y: 0.47}
+  m_Size: {x: 1.88, y: 1.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5123463599095576829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: -0.061, z: 0}
+  m_LocalPosition: {x: 0.008, y: 0.711, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2286447348969831822}
@@ -157,17 +157,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4c2e413e4359e43abdd4257e92b63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
+  points: 50
   bulletSpawnPoint: {fileID: 4437698594338314574}
   bulletPrefab: {fileID: 645663319985987747, guid: 1eb404179a24e604888cfe6d29c9296e,
     type: 3}
   shootingSpeed: 3
   player: {fileID: 0}
   gun: {fileID: 2286447348969831822}
-  speed: 0
-  shootingDelay: 0
-  lastTimeShot: 0
-  bulletSpeed: 0
+  bulletSpeed: 300
   direction: {x: 0, y: 0}
 --- !u!50 &8803588492774056950
 Rigidbody2D:
