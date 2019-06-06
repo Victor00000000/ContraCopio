@@ -30,7 +30,7 @@ public class MonsterSpawn : MonoBehaviour
         if (!spawnStarted) {
             dist = transform.position.x - player.position.x;
 
-            if (dist < 9) {
+            if (dist < 11) {
                 Spawn();
                 spawnStarted = true;
             }
