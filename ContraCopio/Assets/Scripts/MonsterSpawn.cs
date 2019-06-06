@@ -16,12 +16,6 @@ public class MonsterSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(InitCoroutine());
-    }
-    IEnumerator InitCoroutine() {
-        yield return new WaitForEndOfFrame();
-
-        // Do your code here to assign game objects
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
