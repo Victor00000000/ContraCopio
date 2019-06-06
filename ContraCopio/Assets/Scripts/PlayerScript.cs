@@ -17,6 +17,9 @@ public class PlayerScript : MonoBehaviour
     bool collision = true;
     float fallingTimer;
     public Transform groundCheck;
+    public Transform grroundCheck2;
+    public LayerMask maski;
+    bool isGrounded;
     Color spawnColor;
 
     bool right;
@@ -27,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     // Fireing
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
-    public Transform bulletParent;
+    public GameObject bulletParent;
     public float gunCooldown = 1f;
     float gunCooldownTimer;
 
@@ -36,9 +39,9 @@ public class PlayerScript : MonoBehaviour
     {  
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        bulletParent = GameObject.Find("Bullets").transform;
+        bulletParent = new GameObject("Bullets");
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sr = transform.GetComponentInChildren<SpriteRenderer>();
         camera = Camera.main;
 
         spawnColor = Color.white;
@@ -47,26 +50,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, -Vector2.up);
-
-        if (hit.collider != null)
-        {
-            float distance = Mathf.Abs(hit.point.y - groundCheck.transform.position.y);
-            Debug.Log(distance);
-            if (distance < 0.01f)
-            {
-                jumping = false;
-                Debug.Log("not jumping");
-                animator.SetBool("Jumping", false);
-            }
-            else
-            {
-                jumping = true;
-                Debug.Log("jumping");
-                animator.SetBool("Jumping", true);
-            }
-
-        }
+        jumping = !Physics2D.OverlapArea(groundCheck.position, grroundCheck2.position, maski);
     }
 
     // Update is called once per frame
@@ -98,7 +82,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (right)
             {
-                Debug.Log("Right");
+                //Debug.Log("Right");
                 inputVector.x = 1;
                 transform.localScale = new Vector3(1, 1, 1);
                 animator.SetBool("Move", true);
@@ -114,20 +98,19 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Y) && jumping == false)
         {
-            /*
+            
             if (right)
-                rb2d.velocity = new Vector2(jumpingSpeed, jumpingSpeed).normalized;
+                rb2d.velocity = new Vector2(jumpingSpeed, jumpingSpeed * 2).normalized * jumpingSpeed;
             else if (left)
-                rb2d.velocity = new Vector2(-jumpingSpeed, jumpingSpeed).normalized;
-            else */
+                rb2d.velocity = new Vector2(-jumpingSpeed, jumpingSpeed * 2).normalized * jumpingSpeed;
+            else 
                 rb2d.velocity = new Vector2(0, jumpingSpeed);
 
-            //animator.SetBool("Jumping", true);
             Debug.Log("jump");
             jumping = true;
         }
 
-        Debug.Log("velocity" + rb2d.velocity);
+        //Debug.Log("velocity" + rb2d.velocity);
         
 
         if (down)
@@ -159,7 +142,7 @@ public class PlayerScript : MonoBehaviour
     void Shoot() {
         
         gunCooldownTimer = gunCooldown;
-        GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
+        GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent.transform);
         BulletScript bul = go.GetComponent<BulletScript>();
         
         if (down) { // Check down inputs
@@ -189,10 +172,12 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Die() {
+        Debug.Log("die");
         Vector2 newPos = new Vector2(-50000, 0);
         transform.position = newPos;
         collision = false;
-        sr.color = spawnColor;
+        if (sr != null)
+            sr.color = spawnColor;
         gm.UpdateLives(-1);
         if (gm.lives > 0)
             Invoke("Respawn", 2f);
@@ -217,7 +202,7 @@ public class PlayerScript : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;  
-        Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
+        Gizmos.DrawLine(groundCheck.position, grroundCheck2.position);
     }
 
 }
