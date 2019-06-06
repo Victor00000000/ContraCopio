@@ -207,8 +207,10 @@ public class PlayerScript : MonoBehaviour
         if (other.CompareTag("Bullet")) {
             BulletScript bul = other.GetComponent<BulletScript>();
             if (bul.target == "Player")
-                if (collision)
+                if (collision) {
+                    Destroy(other.gameObject);
                     Die();
+                }
         }
     }
 
@@ -218,8 +220,7 @@ public class PlayerScript : MonoBehaviour
         Vector2 newPos = new Vector2(-50000, 0);
         transform.position = newPos;
         collision = false;
-        if (sr != null)
-            sr.color = spawnColor;
+        sr.color = spawnColor;
         gm.UpdateLives(-1);
         Debug.Log("die");
         if (gm.lives > 0) {

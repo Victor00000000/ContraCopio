@@ -30,11 +30,4 @@ public class BulletScript : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-    void OnTriggerEnter2D(Collider2D col){
-        if(col.CompareTag (target)) {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
-        }
-    }    
 }

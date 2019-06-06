@@ -20,8 +20,19 @@ public class ParentMonster : MonoBehaviour
         
     }
 
-    void OnDestroy() {
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Bullet")) {
+            BulletScript bul = other.GetComponent<BulletScript>();
+            if (bul.target == "Enemy") {
+                Destroy(other.gameObject);
+                Die();
+            }
+        }
+    }
+
+    void Die() {
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         gm.ScorePoins(points);
+        Destroy(gameObject);
     }
 }
