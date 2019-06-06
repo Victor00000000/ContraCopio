@@ -59,9 +59,9 @@ public class PlayerScript : MonoBehaviour
         InputReader();
         Move();
 
-        if (fallingTimer < 0 && Physics2D.GetIgnoreLayerCollision(0,8))
+        if (fallingTimer < 0 && Physics2D.GetIgnoreLayerCollision(9,8))
         {
-            Physics2D.IgnoreLayerCollision(0, 8, false);
+            Physics2D.IgnoreLayerCollision(9, 8, false);
         }
     }
 
@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 fallingTimer = 0.5f;
-                Physics2D.IgnoreLayerCollision(0, 8);
+                Physics2D.IgnoreLayerCollision(9, 8);
                 rb2d.velocity = Vector2.zero;
             }
             animator.SetBool("Sit", true);
