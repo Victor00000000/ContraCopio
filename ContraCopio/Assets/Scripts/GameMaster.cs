@@ -22,6 +22,12 @@ public class GameMaster : MonoBehaviour
         livesText.text = "Lives " + lives;
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            GoToMainMenu();
+        }
+    }
+
     public void ScorePoins(int points) {
         score += points;
         scoreText.text = "Score " + score;
