@@ -389,6 +389,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2096019336253983231, guid: db8f9e26ee328574594894fff0ca0bdb,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b2e2837dd444c4d438088bc4381eecd0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db8f9e26ee328574594894fff0ca0bdb, type: 3}
 --- !u!1 &387670664
@@ -3675,7 +3680,8 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 1.9347229, y: -2.4774694}
-  - {x: -20.558655, y: -1.3104477}
+  - {x: 1.8084805, y: -1.9977481}
+  - {x: -20.541822, y: -2.000573}
 --- !u!483693784 &1381539844
 TilemapRenderer:
   m_ObjectHideFlags: 0
