@@ -27,18 +27,18 @@ public class MultiTurret : ParentMonster {
 
     void FixedUpdate() {
         // Figure out which way to move to approach the player
-        direction = (player.position - transform.position).normalized;
-        // Shoot
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        q = Quaternion.AngleAxis(angle, Vector3.forward);
-        gun.transform.rotation = q;
+        
         //gun.LookAt(direction);
         //rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
     }
 
     void Shoot() {
-        
-        
+
+        direction = (player.position - transform.position).normalized;
+        // Shoot
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        q = Quaternion.AngleAxis(angle, Vector3.forward);
+        gun.transform.rotation = q;
 
         // Make a bullet
         GameObject bul = Instantiate(bulletPrefab, bulletSpawnPoint.position, q);
