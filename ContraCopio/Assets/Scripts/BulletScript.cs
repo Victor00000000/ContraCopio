@@ -23,6 +23,8 @@ public class BulletScript : MonoBehaviour
 
     public void SetDirection(Vector2 dir)
     {
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
         direction = dir;
     }
 
