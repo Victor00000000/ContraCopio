@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameMaster gm;
     public SpriteRenderer sr;
-    Camera camera;
+    Camera cam;
     Vector2 inputVector;
     public float speed = 5;
     public float jumpingSpeed = 5;
@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     {  
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        camera = Camera.main;
+        cam = Camera.main;
         bulletParent = new GameObject("Bullets");
 
         spawnColor = Color.white;
@@ -234,7 +234,7 @@ public class PlayerScript : MonoBehaviour
 
     void Respawn() {
         // Spawn player
-        Vector3 newPos = camera.ViewportToWorldPoint(new Vector3(0.2f, 0.5f, 0));
+        Vector3 newPos = cam.ViewportToWorldPoint(new Vector3(0.2f, 0.5f, 0));
         newPos.z = 0f;
         transform.position = newPos;
         Invoke("EnableCollision", 2f);

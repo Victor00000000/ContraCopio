@@ -10,6 +10,7 @@ public class BasicMonster : ParentMonster
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         transform.Translate(dir *(speed * Time.deltaTime));
     }
 

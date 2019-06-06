@@ -15,12 +15,14 @@ public class MultiTurret : ParentMonster {
 
     // Start is called before the first frame update
     void Start() {
+        base.Start();
         player = GameObject.FindWithTag("Player").transform;
         InvokeRepeating("Shoot", 0.1f, shootingSpeed);
     }
 
     // Update is called once per frame
     void Update() {
+        base.Update();
     }
 
     void FixedUpdate() {

@@ -7,17 +7,22 @@ public class ParentMonster : MonoBehaviour
 
     public int points;
     GameMaster gm;
-    
+    Camera cam;
+    public float pos;
+
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        cam = Camera.main;
         transform.gameObject.tag = "Enemy";
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    public void Update() {
+        pos = cam.WorldToScreenPoint(transform.position).x;
+        if (cam.WorldToScreenPoint(transform.position).x < -200) {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
