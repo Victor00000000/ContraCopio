@@ -18,12 +18,17 @@ public class GameMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Fetch game objects
+        StartCoroutine(InitCoroutine());
+    }
+
+    IEnumerator InitCoroutine() {
+        yield return new WaitForEndOfFrame();
         // Score and lives
         scoreText = GameObject.Find("Score").GetComponent<TMPro.TMP_Text>();
         livesText = GameObject.Find("Lives").GetComponent<TMPro.TMP_Text>();
         scoreText.text = "Score " + score;
         livesText.text = "Lives " + lives;
-        PlayerPrefs.DeleteAll();
 
         // Game over and high score
         highScoreInput = GameObject.Find("HighscoreInput").GetComponent<TMPro.TMP_InputField>();

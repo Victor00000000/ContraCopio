@@ -39,13 +39,21 @@ public class PlayerScript : MonoBehaviour
     {  
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        bulletParent = new GameObject("Bullets");
-        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        sr = transform.GetComponentInChildren<SpriteRenderer>();
         camera = Camera.main;
+        bulletParent = new GameObject("Bullets");
 
         spawnColor = Color.white;
         spawnColor.a = 0.3f;
+
+        StartCoroutine(InitCoroutine());
+    }
+
+    IEnumerator InitCoroutine() {
+        yield return new WaitForEndOfFrame();
+
+        // Do your code here to assign game objects
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        sr = GameObject.Find("Bob").GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -106,11 +114,9 @@ public class PlayerScript : MonoBehaviour
             else 
                 rb2d.velocity = new Vector2(0, jumpingSpeed);
 
-            Debug.Log("jump");
+            //animator.SetBool("Jumping", true);
             jumping = true;
         }
-
-        //Debug.Log("velocity" + rb2d.velocity);
         
 
         if (down)
@@ -179,10 +185,14 @@ public class PlayerScript : MonoBehaviour
         if (sr != null)
             sr.color = spawnColor;
         gm.UpdateLives(-1);
-        if (gm.lives > 0)
+        Debug.Log("die");
+        if (gm.lives > 0) {
             Invoke("Respawn", 2f);
-        else
+            Debug.Log("over");
+        } else {
             gm.GameOver();
+            Debug.Log("down");
+        }
     }
 
     void Respawn() {

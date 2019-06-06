@@ -12,6 +12,13 @@ public class ParentMonster : MonoBehaviour
     void Start()
     {
         transform.gameObject.tag = "Enemy";
+        StartCoroutine(InitCoroutine());
+    }
+
+    IEnumerator InitCoroutine() {
+        yield return new WaitForEndOfFrame();
+
+        // Do your code here to assign game objects
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
