@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
     // Fireing
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
-    public Transform bulletParent;
+    public GameObject bulletParent;
     public float gunCooldown = 1f;
     float gunCooldownTimer;
 
@@ -36,13 +36,21 @@ public class PlayerScript : MonoBehaviour
     {  
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        bulletParent = GameObject.Find("Bullets").transform;
-        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         camera = Camera.main;
+        bulletParent = new GameObject("Bullets");
 
         spawnColor = Color.white;
         spawnColor.a = 0.3f;
+
+        StartCoroutine(InitCoroutine());
+    }
+
+    IEnumerator InitCoroutine() {
+        yield return new WaitForEndOfFrame();
+
+        // Do your code here to assign game objects
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        sr = GameObject.Find("Bob").GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -52,17 +60,14 @@ public class PlayerScript : MonoBehaviour
         if (hit.collider != null)
         {
             float distance = Mathf.Abs(hit.point.y - groundCheck.transform.position.y);
-            Debug.Log(distance);
             if (distance < 0.01f)
             {
                 jumping = false;
-                Debug.Log("not jumping");
                 animator.SetBool("Jumping", false);
             }
             else
             {
                 jumping = true;
-                Debug.Log("jumping");
                 animator.SetBool("Jumping", true);
             }
 
@@ -98,7 +103,6 @@ public class PlayerScript : MonoBehaviour
         {
             if (right)
             {
-                Debug.Log("Right");
                 inputVector.x = 1;
                 transform.localScale = new Vector3(1, 1, 1);
                 animator.SetBool("Move", true);
@@ -123,11 +127,8 @@ public class PlayerScript : MonoBehaviour
                 rb2d.velocity = new Vector2(0, jumpingSpeed);
 
             //animator.SetBool("Jumping", true);
-            Debug.Log("jump");
             jumping = true;
         }
-
-        Debug.Log("velocity" + rb2d.velocity);
         
 
         if (down)
@@ -159,7 +160,7 @@ public class PlayerScript : MonoBehaviour
     void Shoot() {
         
         gunCooldownTimer = gunCooldown;
-        GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent);
+        GameObject go = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity, bulletParent.transform);
         BulletScript bul = go.GetComponent<BulletScript>();
         
         if (down) { // Check down inputs
@@ -189,15 +190,20 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Die() {
+        Debug.Log("die");
         Vector2 newPos = new Vector2(-50000, 0);
         transform.position = newPos;
         collision = false;
         sr.color = spawnColor;
         gm.UpdateLives(-1);
-        if (gm.lives > 0)
+        Debug.Log("die");
+        if (gm.lives > 0) {
             Invoke("Respawn", 2f);
-        else
+            Debug.Log("over");
+        } else {
             gm.GameOver();
+            Debug.Log("down");
+        }
     }
 
     void Respawn() {
