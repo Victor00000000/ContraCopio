@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
+  scoreText: {fileID: 0}
+  livesText: {fileID: 0}
+  highScoreInput: {fileID: 0}
+  highScoreListText: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  newHighscorePanel: {fileID: 0}
