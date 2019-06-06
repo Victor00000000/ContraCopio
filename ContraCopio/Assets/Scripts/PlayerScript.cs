@@ -63,6 +63,14 @@ public class PlayerScript : MonoBehaviour
         {
             Physics2D.IgnoreLayerCollision(9, 8, false);
         }
+
+        PreventOutOfScreen();
+    }
+
+    void PreventOutOfScreen() {
+        if (cam.WorldToScreenPoint(transform.position).x < 0) {
+            transform.position.Set(0f, transform.position.y, transform.position.z);
+        }
     }
 
     void InputReader()

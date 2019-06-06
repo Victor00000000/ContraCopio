@@ -8,7 +8,6 @@ public class ParentMonster : MonoBehaviour
     public int points;
     GameMaster gm;
     Camera cam;
-    public float pos;
 
     // Start is called before the first frame update
     public void Start()
@@ -19,7 +18,6 @@ public class ParentMonster : MonoBehaviour
 
     // Update is called once per frame
     public void Update() {
-        pos = cam.WorldToScreenPoint(transform.position).x;
         if (cam.WorldToScreenPoint(transform.position).x < -200) {
             Destroy(gameObject);
         }
