@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
 
-    GameMaster gm;
-    SpriteRenderer sr;
+    public GameMaster gm;
+    public SpriteRenderer sr;
     Camera camera;
     Vector2 inputVector;
     public float speed = 5;
@@ -44,16 +44,6 @@ public class PlayerScript : MonoBehaviour
 
         spawnColor = Color.white;
         spawnColor.a = 0.3f;
-
-        StartCoroutine(InitCoroutine());
-    }
-
-    IEnumerator InitCoroutine() {
-        yield return new WaitForEndOfFrame();
-
-        // Do your code here to assign game objects
-        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        sr = GameObject.Find("Bob").GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
