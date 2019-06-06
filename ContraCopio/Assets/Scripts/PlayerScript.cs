@@ -203,6 +203,16 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Bullet")) {
+            BulletScript bul = other.GetComponent<BulletScript>();
+            if (bul.target == "Player")
+                if (collision)
+                    Die();
+        }
+    }
+
+
     void Die() {
         Debug.Log("die");
         Vector2 newPos = new Vector2(-50000, 0);
