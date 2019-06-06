@@ -285,22 +285,11 @@ PrefabInstance:
       propertyPath: gm
       value: 
       objectReference: {fileID: 1443143266045977648}
-    - target: {fileID: 1377088471296442665, guid: 8c19a89c0bb658f4ebeff3f91f468709,
-        type: 3}
-      propertyPath: sr
-      value: 
-      objectReference: {fileID: 3079191759978553988}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c19a89c0bb658f4ebeff3f91f468709, type: 3}
 --- !u!4 &2040794947418823110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377088471296442664, guid: 8c19a89c0bb658f4ebeff3f91f468709,
-    type: 3}
-  m_PrefabInstance: {fileID: 1102883392114301166}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &3079191759978553988 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 2735169372081519210, guid: 8c19a89c0bb658f4ebeff3f91f468709,
     type: 3}
   m_PrefabInstance: {fileID: 1102883392114301166}
   m_PrefabAsset: {fileID: 0}
