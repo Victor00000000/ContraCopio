@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
-  speed: 5
+  speed: 6
   target: Enemy
 --- !u!58 &645663319985987744
 CircleCollider2D:
