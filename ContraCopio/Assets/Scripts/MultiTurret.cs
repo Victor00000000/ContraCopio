@@ -40,6 +40,7 @@ public class MultiTurret : ParentMonster {
 
         // Make a bullet
         GameObject bul = Instantiate(bulletPrefab, bulletSpawnPoint.position, q);
+        bul.transform.rotation = q;
 
         bul.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0f, bulletSpeed));
         BulletScript scr = bul.GetComponent<BulletScript>();
