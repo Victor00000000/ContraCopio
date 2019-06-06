@@ -21,7 +21,7 @@ public class MonsterSpawn : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (!spawnStarted) {
+        if (!spawnStarted && player != null) {
             dist = transform.position.x - player.position.x;
 
             if (dist < 11) {
