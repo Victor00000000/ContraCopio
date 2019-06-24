@@ -11,6 +11,9 @@ TextureImporter:
   - first:
       213: 8300384278716218587
     second: bob_sprite_shoot_koillinen_strip3_2
+  - first:
+      213: -8720192162673351841
+    second: bob_sprite_shoot_koillinen_strip3_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -111,8 +114,8 @@ TextureImporter:
         y: 0
         width: 70
         height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.3124582, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -132,8 +135,8 @@ TextureImporter:
         y: 0
         width: 70
         height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31245816, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,8 +156,8 @@ TextureImporter:
         y: 0
         width: 70
         height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.31179482, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,6 +165,27 @@ TextureImporter:
       bones: []
       spriteID: 998b8c07180a30f4987ff63e6608607e
       internalID: 8300384278716218587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bob_sprite_shoot_koillinen_strip3_3
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 20
+        width: 29
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd784d2058877b42998c82535a632a2
+      internalID: -8720192162673351841
       vertices: []
       indices: 
       edges: []
